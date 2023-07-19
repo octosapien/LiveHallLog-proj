@@ -1,0 +1,95 @@
+<% layout('layouts/boilerplate') -%>
+
+  <div class="container mt-5">
+    <!-- Function to check if required conditions are met or not for showing the button -->
+    <% function bookValid(prof) { 
+      if(!prof) return false; 
+      if(prof.isTakingClass) return false; 
+      let t=new Date(); let
+      min=t.getMinutes(); 
+      if(min>=0 && min<59)return true; 
+      else return false; 
+      } 
+    %>
+    <h1 class="text-center mb-5">Lecture Hall Status</h1>
+    <% if(prof) {%>
+      <h4 class="text-center mb-5">Professor : <%= prof.name %></h4>
+    <% } %>
+    <div class="row">
+      <% for (let i=0; i <=3; i++) { %>
+        <div class="col-md-4 mb-4">
+          <div class="card h-100" style="background-color: black ; color: white;">
+            <div class="card-body">
+              <h5 class="card-title"><%= lts[i].name %></h5> <br>
+              <p id="status" class="card-text"><b>Status: </b><%= lts[i].status %></p>
+              <% if (lts[i].occupiedBy) { %>
+                <p class="card-text"><b> Occupied By: </b><%= lts[i].occupiedBy %></p>
+                <p class="card-text"><b> Course: </b><%= lts[i].class %></p>
+                <p class="card-text"><b> Class Time: </b><%= lts[i].classTime %></p>
+                <% }else if(bookValid(prof)){%>
+                  <form action="/lectHalls/<%= lts[i]._id%>/prof/<%= prof._id %>?_method=PUT" method="POST">
+                    <button type="submit" class="btn btn-success">Book</button>
+                  </form>
+                <% } %>
+            </div>
+          </div>
+        </div>
+      <% } %>
+
+    <div class>
+      <h4 class="text-center" id="clock"></h4>
+    </div>
+  </div>
+</div>
+
+    <div class="row">
+      <% if(prof){ %><h1 class="mt-4">Attendance Logs</h1><% } %>
+      <% if(prof)for(x of prof.attlogs){ %>
+        <div class="col-md-6">
+          <div class="card text-black bg-light mb-3">
+            <div class="card-body">
+              <h4 class="card-title"><%=x.when%></h4>
+              <p class="card-text">
+                <%if(x.attlog)for(y of x.attlog){%>
+                  <div class="d-flex justify-content-between">
+                    <span><%= y.name %></span>
+                    <span><%= y.rollNo %></span>
+                  </div>
+                <% } %>
+              </p>
+            </div>
+          </div>
+        </div>
+      <% } %>
+    </div>
+    
+
+
+ 
+
+    
+    
+   
+ 
+
+
+
+
+
+  <script>
+    function updateClock() {
+      let now = new Date();
+      let hours_24 = now.getHours();
+      let hours = now.getHours() % 12 || 12;
+      let minutes = ("0" + now.getMinutes()).slice(-2);
+      let seconds = ("0" + now.getSeconds()).slice(-2);
+      let ampm = hours_24 < 12 ? "AM" : "PM";
+      let timeString = hours + ":" + minutes + ":" + seconds + " " + ampm;
+      document.getElementById("clock").innerHTML = "Time: " + timeString;
+    }
+
+    window.onload = function () {
+      updateClock();
+      setInterval(updateClock, 1000);
+    };
+  </script>
