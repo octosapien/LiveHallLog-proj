@@ -264,15 +264,16 @@ module.exports = {
                 if(pg7.pass.toString()==passcode.toString()){
                     console.log("7 hit");
                      //const name = g4.occupiedBy;
-                     if(getDistance(g4,{lat:latitude,lon:longitude})>2.5*d_g4g5){
+                     if(getDistance(g4,{lat:latitude,lon:longitude})==0){//>2.5*d_g4g5
                         x=0;
                         return res.redirect(`/students/verify/${x}`);
                     }
                      const hall= await LectureHall.findOne({name:'G7'});
                      console.log(hall);
                      const prof = await Professor.findOne({name:""+hall.occupiedBy});
-                     if(prof){prof.att.push(stud._id);await prof.save(); x=1;}
+                     if(prof){prof.att.push(stud._id);await prof.save(); x=1;console.log(prof);}
                     //  Code to prevent proxy
+                    /*
                      if(prof){
                         const parseIp = (req) =>
                         req.headers['x-forwarded-for']?.split(',').shift()
@@ -291,6 +292,7 @@ module.exports = {
                             x=1;
                         }
                      }
+                     */
                      else x=0;
                          console.log("the value of x is" ,x)
                       return res.redirect(`/students/verify/${x}`);

@@ -33,10 +33,7 @@ const Passcode = require('./models/passcode');
 
 
 
-app.get('/admin',async (req,res)=>{
-  const obj = await Passcode.find();console.dir(obj);
-  res.send(obj);
-})
+
 
 //updating codes every 30 secs
 async function func1(){
@@ -120,7 +117,7 @@ app.use(morgan('tiny'));
 // Connect to MongoDB
 main().catch(err => console.log('There was an error connecting to mongoose :(', err));
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/proj');
+  await mongoose.connect('mongodb://127.0.0.1:27017/proj1');
   console.log('Sucessfully connected to mongoose!')
 }
 

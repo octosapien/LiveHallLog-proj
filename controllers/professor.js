@@ -21,6 +21,3 @@ module.exports = {
         res.redirect('/lectHalls'); 
     })
 }
-
-
-
