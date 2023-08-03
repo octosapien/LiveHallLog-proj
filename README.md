@@ -1,1 +1,1 @@
-# EXPLORATORY PROJECT
+#  LiveHallLog PROJECT(explo)
