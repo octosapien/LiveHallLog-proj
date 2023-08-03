@@ -131,6 +131,24 @@ app.use('/students', require('./routes/student'));
 app.use('/professors', require('./routes/professor'));
 
 
+// Main route handler
+app.get('*', (req, res, next) => {
+  
+  const profId = req.session.profId;
+  res.locals.profId = profId;
+  next();
+});
+
+//side route to display passcodes
+app.get('/pass', async (req, res) => {
+  try {
+    const passes = await Passcode.find();
+    res.send(passes);
+  } catch (err) {
+    res.status(500).send('Error fetching passcodes');
+  }
+});
+
 // 404 Route
 app.all('*', (req, res, next) => {
   next(new AppError('Page Not Found', 404))

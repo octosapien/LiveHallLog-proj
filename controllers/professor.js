@@ -6,7 +6,9 @@ const Professor = require('../models/professor');
 
 module.exports = {
     renderLoginForm: catchAsync(async (req, res, next) => {
-        if (req.session.profId == null) res.render('professor/login');
+        const profId = req.session.profId;
+        if (profId == null) res.render('professor/login');
+        // else res.render('professor/login', { profId });
         else res.redirect('/lectHalls');
     }),
     login: catchAsync(async (req, res, next) => {

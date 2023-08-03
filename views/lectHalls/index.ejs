@@ -11,6 +11,32 @@
       else return false; 
       } 
     %>
+
+    <%if(0){%>
+    <!-- New Notice section -->
+    <div class="row">
+      <div class="col-md-8">
+        <button id="newNoticeButton" class="btn btn-primary">New Notice</button>
+      </div>
+    </div>
+
+    <div class="row" id="newNoticeSection" style="display: none;">
+      <div class="col-md-12">
+        <div class="form-group">
+          <label for="noticeInput">Add New Notice:</label>
+          <input type="text" class="form-control" id="noticeInput" placeholder="Enter your notice here">
+        </div>
+        <button class="btn btn-primary" onclick="addNewNotice()">Post</button>
+      </div>
+    </div>
+
+  <div id="noticesContainer">
+    <!-- Existing notices are here -->
+  </div>
+
+  <% } %>
+
+    <!-- lect halls start -->
     <h1 class="text-center mb-5">Lecture Hall Status</h1>
     <% if(prof) {%>
       <h4 class="text-center mb-5">Professor : <%= prof.name %></h4>
@@ -20,9 +46,10 @@
         <div class="col-md-4 mb-4">
           <div class="card h-100" style="background-color: black ; color: white;">
             <div class="card-body">
-              <h5 class="card-title"><%= lts[i].name %></h5> <br>
+              <h4 class="card-title"><%= lts[i].name %></h4> <br>
               <p id="status" class="card-text"><b>Status: </b><%= lts[i].status %></p>
               <% if (lts[i].occupiedBy) { %>
+                <div class="dot mx-2 bg-green blinking-ring"></div>
                 <p class="card-text"><b> Occupied By: </b><%= lts[i].occupiedBy %></p>
                 <p class="card-text"><b> Course: </b><%= lts[i].class %></p>
                 <p class="card-text"><b> Class Time: </b><%= lts[i].classTime %></p>
