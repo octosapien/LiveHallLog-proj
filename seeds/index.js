@@ -27,7 +27,7 @@ async function main() {
         await Passcode.deleteMany({});
         const passcodes = ["4", "5", "6", "7"];
         for (const name of passcodes) {
-            await new Passcode({ name: `pass${name}`, pass: `${name}${Math.floor(Math.random() * 1000 + 1)}` }).save();
+            await new Passcode({ name: `${name}`, pass: `${name}${Math.floor(Math.random() * 1000 + 1)}` }).save();
         }
 
         // Seed professors
