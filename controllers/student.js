@@ -91,10 +91,10 @@ module.exports = {
             req.session.studId = stud._id;
 
             const passcodes = {
-                "4": { pass: await Passcode.findOne({ name: "pass4" }), hallName: 'G4', location: g4 },
-                "5": { pass: await Passcode.findOne({ name: "pass5" }), hallName: 'G5', location: g5 },
-                "6": { pass: await Passcode.findOne({ name: "pass6" }), hallName: 'G6', location: g6 },
-                "7": { pass: await Passcode.findOne({ name: "pass7" }), hallName: 'G7', location: g7 },
+                "4": { pass: await Passcode.findOne({ name: "4" }), hallName: 'G4', location: g4 },
+                "5": { pass: await Passcode.findOne({ name: "5" }), hallName: 'G5', location: g5 },
+                "6": { pass: await Passcode.findOne({ name: "6" }), hallName: 'G6', location: g6 },
+                "7": { pass: await Passcode.findOne({ name: "7" }), hallName: 'G7', location: g7 },
             };
 
             const passCodeKey = passcode[0];
