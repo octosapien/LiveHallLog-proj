@@ -18,7 +18,6 @@ async function main() {
 
         // Seed lecture halls
         await LectureHall.deleteMany({});
-
         const lectureHalls = ["G4", "G5", "G6", "G7"];
         for (const name of lectureHalls) {
             await new LectureHall({ name }).save();
@@ -26,7 +25,6 @@ async function main() {
 
         // Seed passcodes
         await Passcode.deleteMany({});
-
         const passcodes = ["4", "5", "6", "7"];
         for (const name of passcodes) {
             await new Passcode({ name: `pass${name}`, pass: `${name}${Math.floor(Math.random() * 1000 + 1)}` }).save();
@@ -34,7 +32,6 @@ async function main() {
 
         // Seed professors
         await Professor.deleteMany({});
-
         const professors = [
             { name: "Arnab Sarkar", password: "p1", uid: "p1", class: "ME231" },
             { name: "Awaneesh", password: "p2", uid: "p2", class: "PHY101" },
@@ -48,7 +45,6 @@ async function main() {
 
         // Seed students
         await Student.deleteMany({});
-
         const students = [
             { name: "Rohan", rollNo: 1, password: "1" },
             { name: "Raj", rollNo: 2, password: "2" },
@@ -62,7 +58,15 @@ async function main() {
         console.log('Database seeded successfully!');
     } catch (error) {
         console.error('Error seeding database:', error);
+    } finally {
+        // Close the Mongoose connection
+        await mongoose.connection.close();
+        // Exit the process
+        process.exit(0);
     }
 }
 
-main().catch(err => console.log('There was an error connecting to mongoose :(', err));
+main().catch(err => {
+    console.log('There was an error connecting to mongoose :(', err);
+    process.exit(1);
+});
