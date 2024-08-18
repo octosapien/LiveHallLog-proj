@@ -167,8 +167,8 @@ async function main() {
     console.log('Successfully connected to mongoose!');
 
     // Clear and then seed the database
-    await clearDatabase();
-    await seedDatabase();
+    // await clearDatabase();
+    // await seedDatabase();
 }
 
 app.get('/', (req, res) => {
